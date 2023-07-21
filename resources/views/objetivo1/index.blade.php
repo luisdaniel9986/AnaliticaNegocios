@@ -11,16 +11,20 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="css/styles.css">
         
-            
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/highcharts-more.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>       
        
 </head>
 <body>
     
     <div class="container-fluid">
-        <div class="row d-flex justify-content-center" style="padding:250px 0">
+        <div class="row d-flex justify-content-center" style="padding:250px 0 50px 0">
             <div class="col-10">
                 <div class="row d-flex justify-content-center">
-                    <div class="col-5">
+                    <div class="col-5  d-flex align-items-center">
                         <div class="row">
                             
                             <div class="col-6">
@@ -107,42 +111,182 @@
                     </div>
                     <div class="col-5">
 
-                        <div class="card p-4 card-respuesta">
-                            <div class="card-body d-flex flex-column justify-content-center">
-                              
-                                <div class="col d-flex justify-content-center">
-                                    <h5 class="card-title mb-5 respuesta_titulo" >Resultado</h5>
-                                </div>
-                                <div class="col d-flex justify-content-center">
-                                    <div class="breeding-rhombus-spinner" hidden id="load">
-                                        <div class="rhombus child-1"></div>
-                                        <div class="rhombus child-2"></div>
-                                        <div class="rhombus child-3"></div>
-                                        <div class="rhombus child-4"></div>
-                                        <div class="rhombus child-5"></div>
-                                        <div class="rhombus child-6"></div>
-                                        <div class="rhombus child-7"></div>
-                                        <div class="rhombus child-8"></div>
-                                        <div class="rhombus big"></div>
+                      <div class="row">
+                        <div class="col-12">
+                            <div class="card p-4 card-respuesta">
+                                <div class="card-body d-flex flex-column justify-content-center">
+                                  
+                                    <div class="col d-flex justify-content-center">
+                                        <h5 class="card-title mb-5 respuesta_titulo" >Resultado</h5>
                                     </div>
-                                </div>
-                                <div class="col d-flex justify-content-center respuesta">
-                                    <p></p>
+                                    <div class="col d-flex justify-content-center">
+                                        <div class="breeding-rhombus-spinner" hidden id="load">
+                                            <div class="rhombus child-1"></div>
+                                            <div class="rhombus child-2"></div>
+                                            <div class="rhombus child-3"></div>
+                                            <div class="rhombus child-4"></div>
+                                            <div class="rhombus child-5"></div>
+                                            <div class="rhombus child-6"></div>
+                                            <div class="rhombus child-7"></div>
+                                            <div class="rhombus child-8"></div>
+                                            <div class="rhombus big"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col d-flex justify-content-center respuesta">
+                                        <p></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12 pt-4">
+                            <div class="card p-4 card-respuesta">
+                                <div class="card-body d-flex flex-column justify-content-center">
+                                  
+                                    
+                                    
+                                    <div class="col respuesta">
+                                        <div class="row">
+                                            <figure class="highcharts-figure">
+                                                <div id="presicion"></div>
+                                                <p class="highcharts-description">
+                                                    Información acerca del nivel de precisión del diagnóstico.
+                                                </p>
+                                            </figure>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
 
                     </div>
                 </div>
                
             </div>  
         </div>
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-5">
+                        <figure class="highcharts-figure">
+                            <div id="grafGlucemia"></div>
+                            <p class="highcharts-description grafGlucemia_desc">
+                                
+                            </p>
+                        </figure>
+                    </div>
+                    <div class="col-5">
+                        
+                    </div>
+                </div>
+            </div>
+           
+        </div>
     </div>
     
     
    
       
+<script>
         
+Highcharts.chart('presicion', {
+
+chart: {
+    type: 'gauge',
+    plotBackgroundColor: null,
+    plotBackgroundImage: null,
+    plotBorderWidth: 0,
+    plotShadow: false,
+    height: '80%'
+},
+
+title: {
+    text: 'Precisión del diagnóstico'
+},
+
+pane: {
+    startAngle: -90,
+    endAngle: 89.9,
+    background: null,
+    center: ['50%', '75%'],
+    size: '110%'
+},
+
+// the value axis
+yAxis: {
+    min: 0,
+    max: 200,
+    tickPixelInterval: 72,
+    tickPosition: 'inside',
+    tickColor: Highcharts.defaultOptions.chart.backgroundColor || '#FFFFFF',
+    tickLength: 20,
+    tickWidth: 2,
+    minorTickInterval: null,
+    labels: {
+        distance: 20,
+        style: {
+            fontSize: '14px'
+        }
+    },
+    lineWidth: 0,
+    plotBands: [{
+        from: 0,
+        to: 120,
+        color: '#55BF3B', // green
+        thickness: 20
+    }, {
+        from: 120,
+        to: 160,
+        color: '#DDDF0D', // yellow
+        thickness: 20
+    }, {
+        from: 160,
+        to: 200,
+        color: '#DF5353', // red
+        thickness: 20
+    }]
+},
+
+series: [{
+    name: 'Speed',
+    data: [20],
+    tooltip: {
+        valueSuffix: ' km/h'
+    },
+    dataLabels: {
+        format: '{y} %',
+        borderWidth: 0,
+        color: (
+            Highcharts.defaultOptions.title &&
+            Highcharts.defaultOptions.title.style &&
+            Highcharts.defaultOptions.title.style.color
+        ) || '#333333',
+        style: {
+            fontSize: '16px'
+        }
+    },
+    dial: {
+        radius: '80%',
+        backgroundColor: 'gray',
+        baseWidth: 12,
+        baseLength: '0%',
+        rearLength: '0%'
+    },
+    pivot: {
+        backgroundColor: 'gray',
+        radius: 6
+    }
+
+}]
+
+});
+
+
+
+
+
+</script>  
    
 
 
