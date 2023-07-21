@@ -16,13 +16,98 @@
     <div class="container-fluid">
         <div class="row d-flex justify-content-center" style="padding:250px 0">
             <div class="col-10">
-                <div class="row">
+                <div class="row d-flex justify-content-center">
                     <div class="col-5">
                         <div class="row">
-
+                            <div class="col-6">
+                                <div class="input-group input-group-sm mb-3">
+                                    <input type="number" id="glucemia" class="form-control" placeholder="Nivel de glucemia" required aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group input-group-sm mb-3">
+                                    <input type="number" id="sistolica" class="form-control" placeholder="Presión sistólica" required aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group input-group-sm mb-3">
+                                    <input type="number" id="diastolica" class="form-control" placeholder="Presión diastólica" required aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group input-group-sm mb-3">
+                                    <input type="number"    id="insulina" class="form-control" placeholder="Nivel de insulina" required aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group input-group-sm mb-3">
+                                    <input type="number"    id="imc" class="form-control" placeholder="Índice de masa corporal" required aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group input-group-sm mb-3">
+                                    <input type="number"    id="cetonas" class="form-control" placeholder="Nivel de cetonas" required aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group input-group-sm mb-3">
+                                    <input type="number"    id="edad" class="form-control" placeholder="Edad" required aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                
+                                    <div class="card">
+                                        <div class="card-body p-4">
+                                            <div class="row">
+                                                <div class="col-6 form-check">
+                                                    <input class="form-check-input polidipsia" type="checkbox" value="" id="flexCheckDefault">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Polidipsia
+                                                    </label>
+                                                </div>
+                                                <div class="col-6 form-check">
+                                                    <input class="form-check-input poliuria" type="checkbox" value="" id="flexCheckDefault">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Poliuria
+                                                    </label>
+                                                </div>
+                                                <div class="col-6 form-check">
+                                                    <input class="form-check-input polifagia" type="checkbox" value="" id="flexCheckDefault">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                    Polifagia
+                                                    </label>
+                                                </div>
+                                                <div class="col-6 form-check">
+                                                    <input class="form-check-input beta" type="checkbox" value="" id="flexCheckDefault">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                    Anticuerpos beta
+                                                    </label>
+                                                </div>
+                                                <div class="col-6 form-check">
+                                                    <input class="form-check-input antecedentes" type="checkbox" value="" id="flexCheckDefault">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                    Antecedentes familiares
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                          
+                            <div class="col-12">
+                                <button type="button" id="btnConsultar" class="btn btn-primary mt-3">Consultar</button>
+                            </div>
                         </div>
                             
                         
+                    </div>
+                    <div class="col-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Resultado</h5>
+                                
+                            </div>
+                        </div>
                     </div>
                 </div>
                
@@ -37,7 +122,7 @@
    
 
 
-
+    <script src="js/obj1.js"></script>
    <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
