@@ -10,6 +10,9 @@
     <!-- Agregar la etiqueta meta para el token CSRF -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="css/styles.css">
+        
+            
+       
 </head>
 <body>
     
@@ -19,9 +22,10 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col-5">
                         <div class="row">
+                            
                             <div class="col-6">
                                 <div class="input-group input-group-sm mb-3">
-                                    <input type="number" id="glucemia" class="form-control" placeholder="Nivel de glucemia" required aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                    <input type="number" required id="glucemia" class="form-control" placeholder="Nivel de glucemia" required aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                                 </div>
                             </div>
                             <div class="col-6">
@@ -95,19 +99,39 @@
                             </div>
                           
                             <div class="col-12">
-                                <button type="button" id="btnConsultar" class="btn btn-primary mt-3">Consultar</button>
+                                <button type="submit" id="btnConsultar" class="btn btn-primary mt-3">Consultar</button>
                             </div>
                         </div>
                             
                         
                     </div>
                     <div class="col-5">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Resultado</h5>
-                                
+
+                        <div class="card p-4 card-respuesta">
+                            <div class="card-body d-flex flex-column justify-content-center">
+                              
+                                <div class="col d-flex justify-content-center">
+                                    <h5 class="card-title mb-5 respuesta_titulo" >Resultado</h5>
+                                </div>
+                                <div class="col d-flex justify-content-center">
+                                    <div class="breeding-rhombus-spinner" hidden id="load">
+                                        <div class="rhombus child-1"></div>
+                                        <div class="rhombus child-2"></div>
+                                        <div class="rhombus child-3"></div>
+                                        <div class="rhombus child-4"></div>
+                                        <div class="rhombus child-5"></div>
+                                        <div class="rhombus child-6"></div>
+                                        <div class="rhombus child-7"></div>
+                                        <div class="rhombus child-8"></div>
+                                        <div class="rhombus big"></div>
+                                    </div>
+                                </div>
+                                <div class="col d-flex justify-content-center respuesta">
+                                    <p></p>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
                

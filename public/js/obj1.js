@@ -12,6 +12,9 @@ const checkPoliuria=document.querySelector('.poliuria');
 const checkPolifagia=document.querySelector('.polifagia');
 const checkBeta=document.querySelector('.beta');
 const checkAntecedentes=document.querySelector('.antecedentes');
+const answerTitle= document.querySelector('.respuesta_titulo');
+const answer= document.querySelector('.respuesta p');
+const spinner= document.querySelector('#load');
 
 
 document.addEventListener('DOMContentLoaded',()=>{
@@ -36,68 +39,20 @@ function events(){
         antecedentes: checkAntecedentes.checked ? 1 : 0
       };
     
-        console.log(consulta);
-        //predecir();
+        //console.log(consulta);
+        predecir(consulta);
         
     })    
 }
 
 
 
-function fetchGetProductsId(){
+
+function predecir(data){
 
 // Obtener el token CSRF desde la etiqueta meta en la vista
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-const data=1;
-const url = `http://localhost:4000/getProducts/${data}`;
-
-// Configuración de la solicitud POST con el token CSRF como encabezado
-const requestOptions = {
-method: 'GET',
-headers: {
-  'Content-Type': 'application/json',
-  'X-CSRF-TOKEN': csrfToken // Agregar el token CSRF como encabezado
-},
-};
-
-// Realizar la solicitud POST utilizando Fetch API
-fetch(url, requestOptions)
-.then(response => {
-  // Verificar si la solicitud fue exitosa (código de estado 200 a 299)
-  if (!response.ok) {
-    throw new Error('Error en la solicitud.');
-  }
-  return response.json(); // Devuelve los datos de respuesta en formato JSON
-})
-.then(data => {
-  // Manejar los datos de respuesta aquí
-  console.log('Respuesta del servidor:', data);
-})
-.catch(error => {
-  // Capturar y manejar errores
-  console.error('Error:', error);
-});
-}
-
-
-function predecir(){
-
-// Obtener el token CSRF desde la etiqueta meta en la vista
-const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-let anticuerposBetaPancreas;
-
-if(inputAnticuerposBetaPancreas.value === 'SI'){
-anticuerposBetaPancreas=1
-}else if(inputAnticuerposBetaPancreas.value === 'NO'){
-anticuerposBetaPancreas=0
-}
-
-//datos a enviar en JSON
-const data = { 
-'glucemia': inputGlucemia.value,
-'anticuerposBetaPancreas' : anticuerposBetaPancreas,   
-}; 
 
 // ruta
 const url = `http://localhost:4000/predecir`;
@@ -124,6 +79,16 @@ fetch(url, requestOptions)
 .then(data => {
   // Manejar los datos de respuesta aquí
   console.log('Respuesta del servidor:', data);
+  answerTitle.textContent="Consultando...";
+  spinner.hidden=false;
+  answer.textContent="";
+
+  setTimeout(() => {
+    spinner.hidden=true;
+    answer.textContent=data;
+    answerTitle.textContent="Diagnóstico";
+  }, 3000);
+
 })
 .catch(error => {
   // Capturar y manejar errores
