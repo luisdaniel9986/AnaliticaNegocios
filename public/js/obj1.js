@@ -41,6 +41,15 @@ function events(){
         antecedentes: checkAntecedentes.checked ? 1 : 0
       };
     
+
+
+        // Manejar los datos de respuesta aquí
+        
+        answerTitle.textContent="Consultando...";
+        spinner.hidden=false;
+        answer.textContent="";
+        divGrafGlucemia.innerHTML=``;
+        pGrafGlucemia.textContent="";
         //console.log(consulta);
         predecir(consulta);
         
@@ -79,20 +88,15 @@ fetch(url, requestOptions)
   return response.json(); // Devuelve los datos de respuesta en formato JSON
 })
 .then(data => {
-  // Manejar los datos de respuesta aquí
-  console.log('Respuesta del servidor:', data);
-  answerTitle.textContent="Consultando...";
-  spinner.hidden=false;
-  answer.textContent="";
-  divGrafGlucemia.innerHTML=``;
-  pGrafGlucemia.textContent="";
-  setTimeout(() => {
+  
+    console.log('Respuesta del servidor:', data);
     spinner.hidden=true;
-    answer.textContent=data;
+    answer.textContent=data.resultado_prediccion;
     answerTitle.textContent="Diagnóstico";
     graf("grafGlucemia",consulta.glucemia);
-    pGrafGlucemia.textContent="Niveles de glucemia"
-  }, 3000);
+    //pGrafGlucemia.textContent="Niveles de glucemia"
+    graf_presicion(parseFloat((data.precision * 100).toFixed(2)))
+    console.log(parseFloat((data.precision * 100).toFixed(2)))
 
 })
 .catch(error => {
@@ -100,6 +104,98 @@ fetch(url, requestOptions)
   console.error('Error:', error);
 });
 }
+
+function graf_presicion(nivelPresicion){
+    const gaugeOptions = {
+        chart: {
+            type: 'solidgauge'
+        },
+    
+        title: null,
+    
+        pane: {
+            center: ['50%', '70%'],
+            size: '75%',
+            startAngle: -90,
+            endAngle: 90,
+            background: {
+                backgroundColor:
+                    Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+                innerRadius: '60%',
+                outerRadius: '100%',
+                shape: 'arc'
+            }
+        },
+    
+        exporting: {
+            enabled: false
+        },
+    
+        tooltip: {
+            enabled: false
+        },
+    
+        // the value axis
+        yAxis: {
+            stops: [
+                [0.49, '#DF5353'], // red
+                [0.69, '#DDDF0D'], // yellow
+                [0.70, '#55BF3B'] // green
+            ],
+            lineWidth: 0,
+            tickWidth: 0,
+            minorTickInterval: null,
+            tickAmount: 2,
+            title: {
+                y: -90
+            },
+            labels: {
+                y: 16
+            }
+        },
+    
+        plotOptions: {
+            solidgauge: {
+                dataLabels: {
+                    y: 5,
+                    borderWidth: 0,
+                    useHTML: true
+                }
+            }
+        }
+    };
+    
+    // The speed gauge
+    const chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
+        yAxis: {
+            min: 0,
+            max: 100,
+            title: {
+                text: ''
+            }
+        },
+    
+        credits: {
+            enabled: false
+        },
+    
+        series: [{
+            name: 'Speed',
+            data: [nivelPresicion],
+            dataLabels: {
+                format:
+                    '<div style="text-align:center">' +
+                    '<span style="font-size:25px">{y}%</span><br/>' +
+                    '</div>'
+            },
+            tooltip: {
+                valueSuffix: '%'
+            }
+        }]
+    
+    }));
+}
+
 
 const graf=(tipo,indice)=>{
   Highcharts.chart(tipo, {
@@ -161,13 +257,13 @@ const graf=(tipo,indice)=>{
     },
     
     series: [{
-        name: 'Glucemia(mg/dL)',
+        name: indice>=115?'Hiperglucemia':indice>=70?'Normal':'Hipoglucemia',
         data: [indice],
         tooltip: {
             valueSuffix: 'mg/dL'
         },
         dataLabels: {
-            format: '{y} %',
+            format: '{y} mg/dL',
             borderWidth: 0,
             color: (
                 Highcharts.defaultOptions.title &&
