@@ -47,7 +47,7 @@
                 </div>
                 <div class="col p-0 "  >
                     <button type="button" class="btn btn-primary">
-                        <a href="#" style="text-decoration-line: none;color:#fff">
+                        <a href="{{ route('predecir-dengue') }}" style="text-decoration-line: none;color:#fff">
                             OBJETIVO 3
                         </a>
                     </button>
